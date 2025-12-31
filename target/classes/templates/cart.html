@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Your Cart - ShopFlow</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+    <header>
+        <a href="/" class="brand">ShopFlow</a>
+        <a href="/cart" class="cart-link" style="background: #e2e8f0;">
+            <span>🛒</span>
+            <span>Cart</span>
+        </a>
+    </header>
+
+    <main>
+        <h1>Your Shopping Cart</h1>
+
+        <div th:if="${cart.empty}" class="empty-state">
+            <h2>Your cart is empty</h2>
+            <a href="/" style="color: var(--primary); text-decoration: none;">Go back to shopping</a>
+        </div>
+
+        <div th:unless="${cart.empty}">
+            <div class="cart-list">
+                <div class="cart-item" th:each="product : ${cart}">
+                    <div style="display: flex; gap: 1rem; align-items: center;">
+                        <span style="font-size: 2rem;" th:text="${product.image}">📦</span>
+                        <div>
+                            <div style="font-weight: 600;" th:text="${product.name}">Product</div>
+                            <div style="color: grey;" th:text="'$' + ${product.price}">$0.00</div>
+                        </div>
+                    </div>
+                    <form action="/remove-from-cart" method="post">
+                        <input type="hidden" name="productId" th:value="${product.id}">
+                        <button type="submit"
+                            style="background: transparent; border: 1px solid #ef4444; color: #ef4444; padding: 0.5rem; border-radius: 0.5rem; cursor: pointer;">Remove</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="cart-total">
+                Total: <span th:text="'$' + ${#numbers.formatDecimal(total, 1, 2)}">$0.00</span>
+            </div>
+
+            <div style="margin-top: 2rem; text-align: right;">
+                <button class="btn" style="width: auto; display: inline-block;">Proceed to Checkout</button>
+            </div>
+        </div>
+    </main>
+</body>
+
+</html>

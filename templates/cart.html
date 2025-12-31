@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Cart - BNW SHOP</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <header>
+        <a href="/" class="brand">BNW Store</a>
+        <a href="/" class="cart-btn">CONTINUE SHOPPING</a>
+    </header>
+
+    <main>
+        <h1>YOUR CART</h1>
+
+        {% if cart %}
+        <table class="cart-table">
+            <thead>
+                <tr>
+                    <th>Item</th>
+                    <th>Product</th>
+                    <th>Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in cart %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>{{ item.name }}</td>
+                    <td>${{ "%.2f"|format(item.price) }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="total-section">
+            TOTAL: ${{ "%.2f"|format(total) }}
+        </div>
+
+        <div style="margin-top: 2rem; display: flex; gap: 1rem; justify-content: flex-end;">
+            <a href="/clear_cart" class="btn"
+                style="background: transparent; color: black; border: 2px solid black; width: auto;">CLEAR</a>
+            <a href="#" class="btn" style="width: auto;">CHECKOUT</a>
+        </div>
+        {% else %}
+        <div class="empty-cart">
+            <h2>CART IS EMPTY</h2>
+            <p>Go add some items.</p>
+        </div>
+        {% endif %}
+    </main>
+</body>
+
+</html>

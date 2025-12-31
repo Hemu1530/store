@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>BNW SHOP</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <header>
+        <a href="/" class="brand">BNW Store</a>
+        <a href="/cart" class="cart-btn">CART ({{ cart_size }})</a>
+    </header>
+
+    <main>
+        <div class="grid">
+            {% for p in products %}
+            <div class="product-card">
+                <span class="product-icon">{{ p.image }}</span>
+                <div class="product-name">{{ p.name }}</div>
+                <span class="product-price">${{ "%.2f"|format(p.price) }}</span>
+                <a href="/add/{{ p.id }}" class="btn">Add to Cart</a>
+            </div>
+            {% endfor %}
+        </div>
+    </main>
+</body>
+
+</html>

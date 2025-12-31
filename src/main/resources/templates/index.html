@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>ShopFlow</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+    <header>
+        <a href="/" class="brand">ShopFlow</a>
+        <a href="/cart" class="cart-link">
+            <span>🛒</span>
+            <span>Cart</span>
+            <span class="badge" th:text="${cartSize}">0</span>
+        </a>
+    </header>
+
+    <main>
+        <div class="grid">
+            <div class="card" th:each="product : ${products}">
+                <div class="card-image" th:text="${product.image}">📦</div>
+                <div class="card-content">
+                    <div class="product-title" th:text="${product.name}">Product Name</div>
+                    <div class="product-price" th:text="'$' + ${product.price}">$0.00</div>
+                    <p style="color: grey; font-size: 0.9em;" th:text="${product.description}">Description</p>
+                    <form action="/add-to-cart" method="post">
+                        <input type="hidden" name="productId" th:value="${product.id}">
+                        <button type="submit" class="btn">Add to Cart</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+
+</html>

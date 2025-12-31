@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="section-title">Transaction History</div>
+
+<div class="transaction-list">
+    {% for t in transactions %}
+    <div class="transaction-item">
+        <div class="t-icon">{{ t.icon }}</div>
+        <div class="t-info">
+            <div class="t-name">{{ t.name }}</div>
+            <div class="t-date">{{ t.date }}</div>
+        </div>
+        <div class="t-amount {{ t.type }}">
+            {{ "+" if t.type == 'credit' else "-" }}{{ user.currency }}{{ "%.2f"|format(t.amount|abs) }}
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
